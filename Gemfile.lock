@@ -71,8 +71,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
-  jeweler (~> 2.0.1)
-  rdoc
-  rspec
-  simplecov
+  bundler (~> 1.7)
+  jeweler (~> 2.0)
+  rdoc (~> 4.2)
+  rspec (~> 3.2)
+  simplecov (~> 0.9)

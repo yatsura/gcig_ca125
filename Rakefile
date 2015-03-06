@@ -10,17 +10,19 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
-
+require './lib/gcig_ca125'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "gcig_ca125"
   gem.homepage = "http://github.com/yatsura/gcig_ca125"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Response and progression of ovarian cancer according to serum CA 125 levels}
+  gem.description = %Q{ A Ruby gem of calculating the response of Ovarian cancer patient
+according to levels of CA 125 as defined by the GCIG}
   gem.email = "paul.d.mitchell@ed.ac.uk"
   gem.authors = ["Paul D Mitchell"]
+  gem.version = GcigCa125::Version::STRING
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
