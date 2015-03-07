@@ -6,9 +6,9 @@ source "http://rubygems.org"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
+  gem "codeclimate-test-reporter", group: :test, require: nil
   gem "rspec", "~> 3.2"
   gem "rdoc", "~> 4.2"
   gem "bundler", "~> 1.7"
   gem "jeweler", "~> 2.0"
-  gem "simplecov", "~> 0.9"
 end
