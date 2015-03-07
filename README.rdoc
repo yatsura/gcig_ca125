@@ -1,6 +1,6 @@
 = gcig_ca125
 
-Description goes here.
+http://www.gcig.igcs.org/CA-125.html
 
 == Contributing to gcig_ca125
  
