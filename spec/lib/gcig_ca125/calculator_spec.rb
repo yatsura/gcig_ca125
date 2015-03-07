@@ -1,4 +1,3 @@
-require 'pry'
 require 'spec_helper'
 
 # Test data from GCIG RESP SET
