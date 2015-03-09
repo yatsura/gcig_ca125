@@ -31,6 +31,10 @@ describe "GcigCa125::Result" do
     end
 
     it "starts with 'Confirmed response' if evaluable, normalised and is a response" do
+      expect(GcigCa125::Result.new(true, true, false).message).to include('Confirmed response')
+    end
+
+    it "starts with 'Confirmed response' if evaluable, normalised and is a response" do
       expect(GcigCa125::Result.new(true, true, true).message).to include('Confirmed response')
     end
   end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 # Test data from GCIG RESP SET
-#
+# This is an integration test
 
 describe "GcigCa125::Calculator" do
   before(:all) do
@@ -42,6 +42,11 @@ describe "GcigCa125::Calculator" do
           else
             expect(@calculator.result).not_to be_normalised
           end
+        end
+
+        it "message" do
+          start_of_message = @data[:note].split(':')[0].strip
+          expect(@calculator.result.message).to include(start_of_message)
         end
       end
     end

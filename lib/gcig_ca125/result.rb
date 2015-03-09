@@ -10,7 +10,7 @@ module GcigCa125
         "No response"
       elsif evaluable? && normalised? && !response?
         "Not confirmed"
-      elsif evaluable? && normalised? && response?
+      elsif evaluable? && response?
         "Confirmed response"
       else
         "Not evaluable"
