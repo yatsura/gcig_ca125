@@ -18,21 +18,19 @@ module GcigCa125
     end
 
     def is_evaluable?
-      @evaluable = (@tests.first[0] <= @rx_date) && (@tests.first[0] >= (@rx_date - 9))
-      @evaluable = (@tests.first[1] > @normal_range.max * 2) if @evaluable
+      sample_before_rx? && sample_within_a_week_of_rx? && first_twice_uln?
     end
 
     def is_response?
       if is_evaluable?
         @tests.select { |test| (test[0] > day_28_after_fall ) && test[1] < half_of_first }.any?
       else
-        @response = false
+        false
       end
     end
 
     def is_normalised?
-      @normalised = find_normalised
-      @normalised.any?
+      find_normalised().any?
     end
 
     def samples_28days_after_fall?
@@ -87,9 +85,7 @@ module GcigCa125
     end
 
     def value_at_fall
-      if tests_after_fall.any?
-        tests_after_fall.first[1]
-      end
+      tests_after_fall.first[1] if tests_after_fall.any?
     end
 
     def tests_after_fall
