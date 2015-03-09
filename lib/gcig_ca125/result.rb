@@ -37,6 +37,13 @@ module GcigCa125
       if !@calculator.test_pre_rx?
         result_string = "Not evaluable: no sample pre-Rx"
       end
+      if !@calculator.sample_within_a_week_of_rx?
+        result_string = "Not evaluable: no sample within 1 week of Rx"
+        if !@calculator.first_twice_uln?
+          result_string = "Not evaluable: 1st sample < 2.ULN"
+        end
+
+      end
       result_string
     end
 

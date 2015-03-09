@@ -51,7 +51,15 @@ module GcigCa125
     end
 
     def test_pre_rx?
-      (@tests.first[0] <= @rx_date) && (@tests.first[0] >= (@rx_date - 9))
+      sample_before_rx? && sample_within_a_week_of_rx?
+    end
+
+    def sample_before_rx?
+      @tests.first[0] <= @rx_date
+    end
+
+    def sample_within_a_week_of_rx?
+      @tests.first[0] >= (@rx_date - 9)
     end
 
     def reduction_maintained?
