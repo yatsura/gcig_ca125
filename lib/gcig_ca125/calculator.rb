@@ -9,7 +9,7 @@ module GcigCa125
     end
 
     def result
-      Result.new is_evaluable?, is_response?, is_normalised?
+      Result.new self
     end
 
     def add_ca125_test(date, value)
@@ -24,7 +24,7 @@ module GcigCa125
 
     def is_response?
       if is_evaluable?
-        @tests.select { |test| (test[0] > date_of_fall + 28 ) && test[1] < half_of_first }.any?
+        @tests.select { |test| (test[0] > day_28_after_fall ) && test[1] < half_of_first }.any?
       else
         @response = false
       end
@@ -35,22 +35,62 @@ module GcigCa125
       @normalised.any?
     end
 
+    def samples_28days_after_fall?
+      test = Proc.new do |item|
+        item[0] > day_28_after_fall
+      end
+      @tests.select(&test).any?
+    end
+
+    def reduced_by_half?
+      (@tests.last[1].to_f / @tests.first[1].to_f ) <= 0.5
+    end
+
+    def first_twice_uln?
+      @tests.first[1] > @normal_range.max * 2
+    end
+
+    def test_pre_rx?
+      (@tests.first[0] <= @rx_date) && (@tests.first[0] >= (@rx_date - 9))
+    end
+
+    def reduction_maintained?
+      test =  Proc.new do |item|
+        item[0] > day_28_after_fall && item[1] > (value_at_fall+15)
+      end
+      @tests.select(&test).empty?
+    end
+
     def sort_tests
       @tests = @tests.sort { |a,b| a[0] <=> b[0] }
     end
 
     private
+    def day_28_after_fall
+      date_of_fall + 28
+    end
+
     def date_of_fall
-      valid_response = Proc.new do |test|
-        #(test[1] < half_of_first) && (test[0] > (@rx_date + 28))
-        (test[1] < half_of_first) && (test[0] > (@tests.first[0]))
-      end
-      if @tests.select(&valid_response).any?
-        @tests.select(&valid_response).first[0]
+      if tests_after_fall.any?
+        tests_after_fall.first[0]
       else
         Date.parse('2999-01-01')
       end
     end
+
+    def value_at_fall
+      if tests_after_fall.any?
+        tests_after_fall.first[1]
+      end
+    end
+
+    def tests_after_fall
+      valid_response = Proc.new do |test|
+        (test[1] < half_of_first) && (test[0] > (@tests.first[0]))
+      end
+      @tests.select(&valid_response)
+    end
+
     def half_of_first
       @tests.first[1] / 2.0
     end

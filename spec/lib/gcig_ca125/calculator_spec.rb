@@ -10,7 +10,7 @@ describe "GcigCa125::Calculator" do
   end
 
   context "GCIG Test Data" do
-    (1..30).each do |test_id|
+    (7..7).each do |test_id|
       context "ID_NUM #{test_id}" do
         before do
           @data = @test_data.get_test(test_id)
