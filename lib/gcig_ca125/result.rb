@@ -6,7 +6,16 @@ module GcigCa125
       @normalised = norm
     end
     def to_s
-      "Not evaluable"
+      if evaluable? && !response? && !normalised?
+        "No response"
+      elsif evaluable? && normalised? && !response?
+        "Not confirmed"
+      elsif evaluable? && normalised? && response?
+        "Confirmed response"
+      else
+        "Not evaluable"
+      end
+
     end
 
     def message
